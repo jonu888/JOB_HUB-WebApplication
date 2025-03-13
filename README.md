@@ -25,17 +25,22 @@ The Job Portal Web Application is a dynamic online platform built using Python-D
 ## Screenshots
 
 #### Welcome
+![Untitled design](https://github.com/user-attachments/assets/55cbf83e-8353-49b1-b6bf-7fe33e82b25f)
 
 ### Users-Job seekers
 
 #### Home
+![Untitled design (2)](https://github.com/user-attachments/assets/0376da98-490e-4d2b-b880-82a596d8d7bf)
 
-#### apply Job
+#### Apply Job
+
+![Screenshot 2025-03-13 223136](https://github.com/user-attachments/assets/dc7c0dd9-f3c5-4261-83bf-dc5dd04f738e)
 
 ### Hr Users-Hiring
 
 #### Home
 
+![Screenshot 2025-03-13 223509](https://github.com/user-attachments/assets/380863e0-b5fd-4483-89fe-7e35d03a4905)
 
 ### Additional functionalaty/features
 
@@ -43,10 +48,14 @@ The Job Portal Web Application is a dynamic online platform built using Python-D
 
 #### Resume Generator
 
+![Screenshot 2025-03-13 223251](https://github.com/user-attachments/assets/9ce72e40-162c-4c33-88c7-7c1c40ee2951)
+![Screenshot 2025-03-13 223316](https://github.com/user-attachments/assets/b0354d6c-0158-4cb5-8308-81d570c5940a)
 
 #### Ats Score checker
 
 
+![Screenshot 2025-03-13 223157](https://github.com/user-attachments/assets/a0449e6e-3e65-488b-9d6e-bd40f18f2d41)
+![Screenshot 2025-03-13 223223](https://github.com/user-attachments/assets/0a8a259d-84b5-4fb2-8945-9ec6ab4518e1)
 
 Te Job Portal Web Application aims to bridge the gap between job seekers and employers, making the job search and hiring process more efficient, effective, and user-friendly.
 
