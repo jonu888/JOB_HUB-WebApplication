@@ -1,0 +1,39 @@
+body {
+    background: #1a1a1a;
+    font-family: 'Georgia', serif;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #2b2b2b;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+    border-bottom: 1px solid #ccc;
+}
+
+.btn-outline-light {
+    border-color: #ccc;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background: #ccc;
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+
+.form-control {
+    background: #2b2b2b;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+
+.form-control:focus {
+    border-color: #fff;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    background: #2b2b2b;
+    color: #fff;
+}

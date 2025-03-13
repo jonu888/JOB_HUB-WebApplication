@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: 'Garamond', serif; color: #2b2b2b; max-width: 800px; margin: 20px auto; }
+        .header { text-align: center; border-bottom: 3px solid #4a2c2a; padding-bottom: 10px; }
+        h1 { color: #4a2c2a; font-size: 32px; }
+        h3 { color: #4a2c2a; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+        .section { margin: 20px 0; }
+        .profile-pic { max-width: 120px; border-radius: 50%; margin: 0 auto; display: block; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ resume.full_name }}</h1>
+        <p>{{ resume.email }} | {{ resume.phone }}</p>
+
+    </div>
+    <div class="section">
+        <h3>Summary</h3>
+        <p>{{ resume.summary }}</p>
+    </div>
+    <div class="section">
+        <h3>Education</h3>
+        {% for edu in resume.education %}
+            {% if edu.degree %}<p><strong>{{ edu.degree }}</strong>, {{ edu.school }} ({{ edu.year }})</p>{% endif %}
+        {% endfor %}
+    </div>
+    <div class="section">
+        <h3>Experience</h3>
+        {% for exp in resume.experience %}
+            {% if exp.title %}<p><strong>{{ exp.title }}</strong>, {{ exp.company }} ({{ exp.duration }})</p>{% endif %}
+        {% endfor %}
+    </div>
+    <div class="section">
+        <h3>Skills</h3>
+        <ul>{% for skill in resume.skills %}<li>{{ skill }}</li>{% endfor %}</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: 'Times New Roman', serif; color: #333; max-width: 800px; margin: 20px auto; }
+        .header { border-bottom: 2px solid #1a3c6e; padding-bottom: 10px; }
+        h1 { color: #1a3c6e; font-size: 28px; }
+        h3 { color: #1a3c6e; margin-top: 20px; }
+        .section { margin: 15px 0; }
+        .profile-pic { max-width: 100px; float: right; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ resume.full_name }}</h1>
+        <p>{{ resume.email }} | {{ resume.phone }}</p>
+        
+    </div>
+    <div class="section">
+        <h3>Professional Summary</h3>
+        <p>{{ resume.summary }}</p>
+    </div>
+    <div class="section">
+        <h3>Education</h3>
+        {% for edu in resume.education %}
+            {% if edu.degree %}<p>{{ edu.degree }}, {{ edu.school }} – {{ edu.year }}</p>{% endif %}
+        {% endfor %}
+    </div>
+    <div class="section">
+        <h3>Work Experience</h3>
+        {% for exp in resume.experience %}
+            {% if exp.title %}<p>{{ exp.title }}, {{ exp.company }} – {{ exp.duration }}</p>{% endif %}
+        {% endfor %}
+    </div>
+    <div class="section">
+        <h3>Skills</h3>
+        <p>{{ resume.skills|join:", " }}</p>
+    </div>
+</body>
+</html>
