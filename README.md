@@ -1,5 +1,6 @@
-# Job Portal Web Application
+<h1 align="center">Todo-Task manager</h1>
 
+<h3>About</h3>
 The Job Portal Web Application is a dynamic online platform built using Python-Django, designed to connect job seekers and Hr users. It streamlines the job search providing a feature-rich environment for both job seekers and Hr users to post job vacancies, apply for jobs
 
 ## Key Features
@@ -17,10 +18,16 @@ The Job Portal Web Application is a dynamic online platform built using Python-D
 - To simplify and optimize the job search 
 - To provide an intuitive and user-friendly interface for job seekers and Hr users.
 
-## Additional functionalaty/features
+### Additional functionalaty/features
 
-### Resume Generator-it is a in in-built feature,The user can create their own resumes for applying jobs
-### Ats Score checker-it is also  a in in-built feature,The user can check their ats score of their resumes
+#### Resume Generator-it is a in in-built feature,The user can create their own resumes for applying jobs
+#### Ats Score checker-it is also  a in in-built feature,The user can check their ats score of their resumes
+
+
+<h3>Technologies Used</h3>
+<p> <a href="https://www.python.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> 
+<a href="https://www.w3.org/html/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a><a href="https://www.w3schools.com/css/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a></p>
 
 ## Screenshots
 
