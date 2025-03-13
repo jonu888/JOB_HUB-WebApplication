@@ -18,18 +18,15 @@ The Job Portal Web Application is a dynamic online platform built using Python-D
 - To simplify and optimize the job search 
 - To provide an intuitive and user-friendly interface for job seekers and Hr users.
 
-<h3>Technologies Used</h3>
+## Technologies Used
 <p> <a href="https://www.python.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> 
 <a href="https://www.w3.org/html/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a><a href="https://www.w3schools.com/css/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a></p>
 
-### Additional functionalaty/features
+## Additional functionalaty/features
 
 #### Resume Generator-it is a in in-built feature,The user can create their own resumes for applying jobs
 #### Ats Score checker-it is also  a in in-built feature,The user can check their ats score of their resumes
-
-
-
 
 ## Screenshots
 
@@ -53,15 +50,12 @@ The Job Portal Web Application is a dynamic online platform built using Python-D
 
 ### Additional functionalaty/features
 
-### Additional functionalaty/features
-
 #### Resume Generator
 
 ![Screenshot 2025-03-13 223251](https://github.com/user-attachments/assets/9ce72e40-162c-4c33-88c7-7c1c40ee2951)
 ![Screenshot 2025-03-13 223316](https://github.com/user-attachments/assets/b0354d6c-0158-4cb5-8308-81d570c5940a)
 
 #### Ats Score checker
-
 
 ![Screenshot 2025-03-13 223157](https://github.com/user-attachments/assets/a0449e6e-3e65-488b-9d6e-bd40f18f2d41)
 ![Screenshot 2025-03-13 223223](https://github.com/user-attachments/assets/0a8a259d-84b5-4fb2-8945-9ec6ab4518e1)
