@@ -12,7 +12,6 @@ The Job Portal Web Application is a dynamic online platform built using Python-D
 
 - **User Profiles:** job seekers and can create and manage detailed profiles, including personal information, work experience, and educational backgrounds.
 
-
 ## Project Goals
 
 - To simplify and optimize the job search 
@@ -22,6 +21,39 @@ The Job Portal Web Application is a dynamic online platform built using Python-D
 
 ### Resume Generator-it is a in in-built feature,The user can create their own resumes for applying jobs
 ### Ats Score checker-it is also  a in in-built feature,The user can check their ats score of their resumes
+
+## Screenshots
+
+#### Welcome
+
+### Users-Job seekers
+
+#### Home
+
+#### apply Job
+
+### Hr Users-Hiring
+
+#### Home
+
+
+### Additional functionalaty/features
+
+### Additional functionalaty/features
+
+#### Resume Generator
+
+
+#### Ats Score checker
+
+
+
+Te Job Portal Web Application aims to bridge the gap between job seekers and employers, making the job search and hiring process more efficient, effective, and user-friendly.
+
+
+
+
+
 
 
 
