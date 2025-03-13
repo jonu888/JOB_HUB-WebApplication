@@ -1,4 +1,4 @@
-<h1 align="center">Todo-Task manager</h1>
+<h1 align="center">JOB_HUB-WebApplication</h1>
 
 <h3>About</h3>
 The Job Portal Web Application is a dynamic online platform built using Python-Django, designed to connect job seekers and Hr users. It streamlines the job search providing a feature-rich environment for both job seekers and Hr users to post job vacancies, apply for jobs
