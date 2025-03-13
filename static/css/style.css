@@ -1,0 +1,128 @@
+/* Core Styles */
+body {
+    background: #000000;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+}
+
+h1, h3 {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header */
+.modern-title {
+    letter-spacing: 2px;
+}
+
+/* Card */
+.modern-card {
+    background: #1e1e1e;
+    border-radius: 12px; /* Slightly larger for modernity */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shadow-md {
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.08);
+}
+
+.modern-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.12);
+}
+
+/* Inputs */
+.modern-input {
+    background: #1e1e1e;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modern-input:focus {
+    border-color: #00d4ff; /* Subtle cyan accent */
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+    background: #1e1e1e;
+    color: #ffffff;
+}
+
+.modern-input::placeholder {
+    color: #b0b0b0;
+}
+
+/* Buttons */
+.btn-outline-light {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    padding: 12px 32px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+/* Text */
+.text-secondary {
+    color: #b0b0b0 !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.fw-semibold {
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.animate-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Layout */
+.container-fluid {
+    max-width: 1400px;
+}
+
+/* Overlay */
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.9) 80%);
+    z-index: -1;
+}
+
+/* Sections */
+.section {
+    position: relative;
+}
