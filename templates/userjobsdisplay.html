@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JobHub Available Jobs - Discover job opportunities and apply for your dream career.">
+    <meta name="keywords" content="job openings, job search, career opportunities, JobHub, employment, apply jobs">
+    <meta name="author" content="JONU">
+    <meta name="robots" content="index, follow">
+    <title>JobHub - Available Jobs</title>
+    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&family=Bebas+Neue&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --background-color: #0a0a0a;
+            --card-bg: rgba(40, 40, 40, 0.95);
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent-gradient: linear-gradient(45deg, #b0bec5, #78909c);
+            --button-gradient: linear-gradient(45deg, #455a64, #607d8b);
+            --button-hover-gradient: linear-gradient(45deg, #607d8b, #455a64);
+            --shadow-color: rgba(0, 0, 0, 0.9);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.15);
+            --glass-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+            --focus-outline: 0 0 0 3px rgba(176, 190, 197, 0.4);
+            --glow-accent: rgba(120, 144, 156, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow: auto;
+            background: var(--background-color);
+            color: var(--text-primary);
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            border-bottom: var(--glass-border);
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(4px);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .job-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 8px var(--glow-accent);
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-input, .filter-select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: var(--glass-border);
+            background: rgba(50, 50, 50, 0.9);
+            color: var(--text-primary);
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .search-input:focus, .filter-select:focus {
+            border-color: #b0bec5;
+            box-shadow: var(--focus-outline);
+            background: rgba(55, 55, 55, 0.95);
+            outline: none;
+        }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 15px;
+        }
+
+        .job-card {
+            background: var(--card-bg);
+            border: var(--glass-border);
+            border-radius: 10px;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            min-height: 200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .job-card:nth-child(1) { animation-delay: 0.1s; }
+        .job-card:nth-child(2) { animation-delay: 0.2s; }
+        .job-card:nth-child(3) { animation-delay: 0.3s; }
+        .job-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .job-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px var(--shadow-color), 0 0 12px var(--glow-accent);
+        }
+
+        .job-card h5 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2em;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+
+        .job-card p {
+            margin: 5px 0;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+
+        .job-card .company-name {
+            font-weight: 500;
+            color: #cfd8dc;
+        }
+
+        .btn-apply, .btn-details {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            background: var(--button-gradient);
+            color: var(--text-primary);
+            border: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-apply:hover, .btn-details:hover {
+            background: var(--button-hover-gradient);
+            transform: scale(1.06) rotate(2deg);
+            box-shadow: 0 6px 12px rgba(96, 125, 139, 0.3);
+        }
+
+        /* Modal Styling */
+        .modal {
+            z-index: 2000;
+        }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+        }
+
+        .modal-dialog {
+            max-width: 550px;
+        }
+
+        .modal-dialog.apply-modal {
+            max-width: 350px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            max-height: 65vh;
+            overflow-y: auto;
+            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(6px);
+            border-top: 2px solid #b0bec5;
+            animation: modalFade 0.4s ease-out;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            border-bottom: var(--glass-border);
+            padding: 12px 20px;
+            background: rgba(50, 50, 50, 0.85);
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3em;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-body {
+            padding: 20px;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .modal-body p {
+            margin: 8px 0;
+            color: var(--text-secondary);
+        }
+
+        .modal-body p strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .modal-footer {
+            border-top: var(--glass-border);
+            padding: 12px 20px;
+            background: rgba(50, 50, 50, 0.85);
+        }
+
+        .form-control {
+            background: rgba(60, 60, 60, 0.9);
+            border: var(--glass-border);
+            color: var(--text-primary);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #b0bec5;
+            box-shadow: var(--focus-outline);
+            background: rgba(65, 65, 65, 0.95);
+        }
+
+        .btn-secondary {
+            background: rgba(100, 100, 100, 0.9);
+            border: none;
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(120, 120, 120, 0.9);
+            transform: scale(1.06);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: var(--button-gradient);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            box-shadow: var(--glass-shadow);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 6px 14px rgba(96, 125, 139, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 16px rgba(96, 125, 139, 0.4); }
+        }
+
+        .back-button:hover {
+            background: var(--button-hover-gradient);
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(96, 125, 139, 0.5);
+            animation: none;
+        }
+
+        /* Custom Message Modal */
+        .message-modal .modal-dialog {
+            max-width: 400px;
+        }
+
+        .message-modal .modal-content {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.95), rgba(50, 50, 50, 0.95));
+            border: 1px solid rgba(176, 190, 197, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            animation: popUp 0.3s ease-out;
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .message-modal .modal-header {
+            border-bottom: none;
+            padding: 15px 20px;
+            background: transparent;
+        }
+
+        .message-modal .modal-title {
+            font-size: 1.4em;
+            color: #b0bec5;
+            text-align: center;
+            width: 100%;
+        }
+
+        .message-modal .modal-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .message-modal .modal-body .message-text {
+            color: var(--text-primary);
+            font-size: 1em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .message-modal .modal-footer {
+            border-top: none;
+            padding: 10px 20px;
+            justify-content: center;
+            background: transparent;
+        }
+
+        .message-modal .btn-close {
+            filter: brightness(2);
+        }
+
+        .message-modal .btn-close:hover {
+            filter: brightness(3);
+        }
+
+        @media (max-width: 600px) {
+            .message-modal .modal-dialog {
+                max-width: 90%;
+            }
+            .message-modal .modal-title {
+                font-size: 1.2em;
+            }
+            .message-modal .modal-body .message-text {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2 class="job-title"><i class="bi bi-briefcase-fill me-2"></i>Job Openings</h2>
+            <div class="search-filter">
+                <input type="text" class="search-input" placeholder="Search jobs..." id="jobSearch" aria-label="Search jobs">
+                <select class="filter-select" id="jobFilter" aria-label="Filter jobs">
+                    <option value="all">All Jobs</option>
+                    <option value="jobname">By Job Name</option>
+                    <option value="location">By Location</option>
+                    <option value="company">By Company</option>
+                    <option value="salary">By Salary</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="job-grid">
+            <!-- Message Modal -->
+            {% if messages %}
+                <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="messageModalLabel">Notification</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {% for message in messages %}
+                                    <p class="message-text {% if message.tags == 'error' %}text-danger{% elif message.tags == 'success' %}text-success{% else %}text-warning{% endif %}">
+                                        {{ message }}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if error %}
+                <div class="alert alert-dark text-center" role="alert">{{ error }}</div>
+            {% endif %}
+
+            {% if data %}
+                {% for job in data %}
+                    <div class="job-card" tabindex="0" aria-label="Job: {{ job.job_name }} at {{ job.company_name }}">
+                        <h5 title="{{ job.job_name }}">{{ job.job_name }}</h5>
+                        <p class="company-name" title="{{ job.company_name }}"><i class="bi bi-building me-1"></i>{{ job.company_name }}</p>
+                        <p><i class="bi bi-geo-alt-fill me-1"></i>{{ job.location }}</p>
+                        <p class="text-success"><i class="bi bi-currency-dollar me-1"></i>{{ job.salary_package }}</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-details" data-bs-toggle="modal" data-bs-target="#jobModal{{ job.id }}" aria-label="View details for {{ job.job_name }}">Details</button>
+                            <button class="btn btn-apply" data-bs-toggle="modal" data-bs-target="#applyModal{{ job.id }}" aria-label="Apply for {{ job.job_name }}">Apply</button>
+                        </div>
+                    </div>
+
+                    <!-- Details Modal -->
+                    <div class="modal fade" id="jobModal{{ job.id }}" tabindex="-1" aria-labelledby="jobModalLabel{{ job.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="jobModalLabel{{ job.id }}">{{ job.job_name }}</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Company:</strong> {{ job.company_name }}</p>
+                                    <p><strong>Location:</strong> {{ job.location }}</p>
+                                    <p><strong>Description:</strong> {{ job.description|linebreaks }}</p>
+                                    <p><strong>Salary:</strong> {{ job.salary_package }}</p>
+                                    <p><strong>Requirements:</strong> {{ job.requirements|linebreaks }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Apply Modal -->
+                    <div class="modal fade" id="applyModal{{ job.id }}" tabindex="-1" aria-labelledby="applyModalLabel{{ job.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered apply-modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="applyModalLabel{{ job.id }}">Apply for {{ job.job_name }}</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form method="post" action="{% url 'applyjobs' job.id %}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="name{{ job.id }}" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="name{{ job.id }}" name="name" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email{{ job.id }}" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email{{ job.id }}" name="email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="resume{{ job.id }}" class="form-label">Upload Resume (PDF only)</label>
+                                            <input type="file" class="form-control" id="resume{{ job.id }}" name="resume" accept=".pdf" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-apply">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-dark text-center" role="alert">No jobs available. Check back later.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <a href="/userdashboard/{{no}}" class="back-button">Back to Dashboard</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Search and Filter
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('jobSearch');
+            const filterSelect = document.getElementById('jobFilter');
+            const jobCards = document.querySelectorAll('.job-card');
+
+            function filterJobs() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const filterType = filterSelect.value;
+
+                jobCards.forEach(card => {
+                    const jobName = card.querySelector('h5').textContent.toLowerCase();
+                    const company = card.querySelector('.company-name').textContent.toLowerCase();
+                    const location = card.querySelector('p:nth-child(3)').textContent.toLowerCase();
+                    const salary = card.querySelector('.text-success').textContent.toLowerCase();
+
+                    let match = false;
+                    switch (filterType) {
+                        case 'all': match = [jobName, company, location, salary].some(text => text.includes(searchTerm)); break;
+                        case 'jobname': match = jobName.includes(searchTerm); break;
+                        case 'location': match = location.includes(searchTerm); break;
+                        case 'company': match = company.includes(searchTerm); break;
+                        case 'salary': match = salary.includes(searchTerm); break;
+                    }
+                    card.style.display = match ? '' : 'none';
+                });
+            }
+
+            function debounce(func, wait) {
+                let timeout;
+                return function (...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+
+            searchInput.addEventListener('input', debounce(filterJobs, 200));
+            filterSelect.addEventListener('change', filterJobs);
+            filterJobs();
+
+            // Animation Trigger for Job Cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            jobCards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+        });
+
+        // Modal Fix and Message Modal Trigger
+        document.addEventListener('DOMContentLoaded', () => {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                const modalInstance = new bootstrap.Modal(modal, { backdrop: true, keyboard: true });
+
+                modal.addEventListener('show.bs.modal', () => {
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+                });
+
+                modal.addEventListener('shown.bs.modal', () => {
+                    const inputs = modal.querySelectorAll('.form-control');
+                    inputs.forEach(input => {
+                        input.disabled = false;
+                        input.readOnly = false;
+                        input.style.pointerEvents = 'auto';
+                    });
+                    const firstInput = modal.querySelector('.form-control');
+                    if (firstInput) firstInput.focus();
+                });
+
+                modal.addEventListener('hide.bs.modal', () => {
+                    modalInstance.hide();
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+                });
+
+                modal.addEventListener('hidden.bs.modal', () => {
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+                });
+            });
+
+            // Trigger message modal if messages exist
+            const messageModal = document.getElementById('messageModal');
+            if (messageModal) {
+                const modalInstance = new bootstrap.Modal(messageModal);
+                modalInstance.show();
+                messageModal.addEventListener('hidden.bs.modal', () => {
+                    // Clear messages after modal is closed (optional)
+                    const messages = document.querySelectorAll('.message-text');
+                    messages.forEach(msg => msg.remove());
+                });
+            }
+        });
+    </script>
+</body>
+</html>

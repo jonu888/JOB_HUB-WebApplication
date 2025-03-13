@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Jobs Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            transition: all 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.02);
+            border: 1px solid #555;
+        }
+        .table-hover tbody tr {
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .table-hover tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .btn-danger {
+            transition: all 0.3s;
+        }
+        .btn-danger:hover {
+            transform: scale(1.1);
+        }
+        .search-bar {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2><i class="bi bi-briefcase-fill me-2"></i> Job Listings</h2>
+            <div class="d-flex align-items-center">
+                <input type="text" id="search" class="form-control me-3 search-bar" placeholder="Search jobs...">
+                <a href="{% url 'addjobs' pk=request.user.id %}" class="btn btn-success me-2">
+                    <i class="bi bi-plus-circle me-1"></i> Add Job
+                </a>
+                <a href="{% url 'admindashboard' no %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered border-secondary" id="jobTable">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Company</th>
+                                <th>Location</th>
+                                <th>Description</th>
+                                <th>Salary</th>
+                                <th>Requirements</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in data %}
+                            <tr onclick="location.href='{% url 'job_update' job.id %}'">
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ job.job_name }}</td>
+                                <td>{{ job.company_name }}</td>
+                                <td>{{ job.location }}</td>
+                                <td>{{ job.description }}</td>
+                                <td>{{ job.salary_package }}</td>
+                                <td>{{ job.requirements }}</td>
+                                <td>
+                                    <a href="{% url 'job_delete' job.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("search").addEventListener("keyup", function () {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#jobTable tbody tr");
+            rows.forEach(row => {
+                let text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

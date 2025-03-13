@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin dashboard for managing applied candidates">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Applied Candidates | Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3JxwUJkmDTGqM7vqQevN0eCdX3Mu7G6Rnbfh EdL" crossorigin="anonymous">
+    <style>
+        :root {
+            --bg-dark: #0d0d0d;
+            --card-bg: linear-gradient(135deg, #1a1a1a, #252525);
+            --text-light: #d9d9d9;
+            --text-muted: #a0a0a0;
+            --accent-dark: #333;
+            --hover-glow: rgba(255, 255, 255, 0.05);
+            --table-dark: #1a1a1a;
+            --border-color: #3a3a3a;
+            --highlight-color: rgba(255, 255, 255, 0.1);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.15);
+            --glass-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #121212, #0d0d0d);
+            color: var(--text-light);
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.4;
+            /* Slightly reduced line height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1 0 auto;
+            position: relative;
+            z-index: 1;
+            padding: 1rem;
+            /* Reduced padding */
+        }
+
+        /* Header Styling */
+        .page-header {
+            border-bottom: var(--glass-border);
+            padding: 0.75rem 1rem;
+            /* Reduced padding */
+            margin-bottom: 1rem;
+            /* Reduced margin */
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.05), transparent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .page-header h2 {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin: 0;
+            font-size: 1.5rem;
+            /* Adjusted font size */
+        }
+
+        .page-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            /* Reduced bottom offset */
+            left: 0;
+            width: 40px;
+            /* Reduced width */
+            height: 2px;
+            background: var(--text-muted);
+            transition: width 0.3s ease;
+        }
+
+        .page-header:hover h2::after {
+            width: 80px;
+            /* Reduced width */
+        }
+
+        /* Card Styling */
+        .card {
+            background: var(--card-bg);
+            border: var(--glass-border);
+            border-radius: 0.75rem;
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Email cell styling */
+        .email-cell {
+            max-width: 200px;
+            /* Reduced max-width */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .email-cell a {
+            color: #1cc2ff !important;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .email-cell a:hover {
+            color: #0fa5e9 !important;
+            text-decoration: underline;
+        }
+
+        /* ATS Score cell styling */
+        .ats-score-cell {
+            max-width: 80px;
+            /* Reduced max-width */
+            text-align: center;
+        }
+
+        .ats-score-cell .score {
+            display: inline-block;
+            padding: 2px 8px;
+            /* Reduced padding */
+            border-radius: 20px;
+            font-size: 0.85rem;
+            /* Reduced font size */
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .ats-score-cell .score.high {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .ats-score-cell .score.medium {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .ats-score-cell .score.low {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+
+        .ats-score-cell .score:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer styling */
+        footer {
+            flex-shrink: 0;
+            padding: 0.5rem;
+            /* Reduced padding */
+            background: var(--card-bg);
+            border-top: var(--glass-border);
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+            font-size: 0.85rem;
+            /* Reduced font size */
+        }
+
+        footer small {
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        /* Job Group Styling */
+        .job-group {
+            margin-bottom: 1rem;
+            /* Reduced margin */
+        }
+
+        .job-group-header {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent);
+            padding: 0.5rem 1rem;
+            /* Reduced padding */
+            border-radius: 0.5rem 0.5rem 0 0;
+            font-size: 1.1rem;
+            /* Reduced font size */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-light);
+            border-bottom: var(--glass-border);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            /* Reduced gap */
+        }
+
+        .job-group-header i {
+            color: #1cc2ff;
+        }
+
+        /* Table Styling */
+        .job-table {
+            background: transparent;
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            border-radius: 0 0 0.5rem 0.5rem;
+            overflow: hidden;
+        }
+
+        .job-table thead {
+            background: linear-gradient(135deg, #1a1a1a, #252525);
+        }
+
+        .job-table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            /* Reduced letter spacing */
+            padding: 0.75rem;
+            /* Reduced padding */
+            color: var(--text-muted);
+            border-bottom: var(--glass-border);
+            font-size: 0.9rem;
+            /* Reduced font size */
+        }
+
+        .job-table tbody tr {
+            background: rgba(30, 30, 30, 0.7);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .job-table tbody tr:hover {
+            background: rgba(50, 50, 50, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .job-table td {
+            padding: 0.5rem;
+            /* Reduced padding */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: middle;
+            font-size: 0.9rem;
+            /* Reduced font size */
+        }
+
+        .job-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Subtle background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .btn-dark {
+            background: linear-gradient(45deg, var(--accent-dark), #3d3d3d);
+            border: none;
+            border-radius: 0.375rem;
+            /* Reduced radius */
+            padding: 0.375rem 0.875rem;
+            /* Reduced padding */
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            /* Reduced font size */
+            color: var(--text-light);
+        }
+
+        .btn-dark:hover {
+            background: linear-gradient(45deg, #3d3d3d, #484848);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--hover-glow);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #444, #555);
+            border: none;
+            border-radius: 0.375rem;
+            /* Reduced radius */
+            padding: 0.375rem 0.875rem;
+            /* Reduced padding */
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            /* Reduced font size */
+            color: var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #555, #666);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--hover-glow);
+            color: #fff;
+        }
+
+        .alert-dark {
+            background: linear-gradient(135deg, #252525, #1a1a1a);
+            border: var(--glass-border);
+            border-radius: 0.5rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 0.75rem;
+            /* Reduced padding */
+            text-align: center;
+            font-size: 0.9rem;
+            /* Reduced font size */
+        }
+
+        .white-text {
+            color: white !important;
+        }
+
+
+        @media (max-width: 768px) {
+
+            .job-table th,
+            .job-table td {
+                padding: 0.5rem;
+                /* Reduced padding */
+                font-size: 0.85rem;
+                /* Reduced font size */
+            }
+
+            .email-cell,
+            .ats-score-cell {
+                max-width: 120px;
+                /* Reduced max-width */
+            }
+
+            .btn {
+                padding: 0.3rem 0.6rem;
+                /* Reduced padding */
+                font-size: 0.8rem;
+                /* Reduced font size */
+            }
+
+            .card {
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            }
+
+            .job-group-header {
+                font-size: 1rem;
+                /* Reduced font size */
+                padding: 0.4rem 0.8rem;
+                /* Reduced padding */
+            }
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    </style>
+</head>
+
+<body>
+    <div class="container mt-0">
+        <header class="page-header d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Applied Candidates</h2>
+            <a href="{% url 'admindashboard' pk=request.user.id %}" class="btn btn-secondary"
+                aria-label="Back to Admin Dashboard">
+                <i class="bi bi-arrow-left-circle me-1"></i> Back to Dashboard
+            </a>
+        </header>
+
+        <main class="card">
+            <div class="card-body">
+                {% if grouped_candidates %}
+                {% for job_name, candidates in grouped_candidates.items %}
+                <div class="job-group">
+                    <div class="job-group-header">
+                        <i class="bi bi-briefcase-fill"></i> {{ job_name|title }}
+                    </div>
+                    <table class="job-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Candidate Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">ATS Score</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for candidate in candidates %}
+                            <tr>
+                                <td class="white-text">{{ forloop.counter }}</td>
+                                <td class="white-text">{{ candidate.no.first_name|title }} {{candidate.no.last_name|title }}</td>
+                                <td class="email-cell">
+                                    <a href="mailto:{{ candidate.email }}" title="{{ candidate.email }}">
+                                        {{ candidate.email }}
+                                    </a>
+                                </td>
+                                <td class="ats-score-cell">
+                                    {% if candidate.ats_score is not None %}
+                                    <span
+                                        class="score {% if candidate.ats_score >= 70 %}high{% elif candidate.ats_score >= 50 %}medium{% else %}low{% endif %}">
+                                        {{ candidate.ats_score }}
+                                    </span>
+                                    {% else %}
+                                    <span class="text-muted">N/A</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'candidate_detail' candidate.id %}" class="btn btn-dark">
+                                        View Details
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="alert alert-dark">
+                    <i class="bi bi-info-circle me-1"></i> No candidates have applied yet.
+                </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <footer class="text-center">
+        <small>Admin Dashboard - Candidate Management © {% now "Y" %}</small>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

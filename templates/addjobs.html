@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Job</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-color: #ffffff; /* Changed to white for consistency */
+            --secondary-color: #cccccc; /* Light gray for subtle contrast */
+            --accent-color: #ff4b5c; /* Retained for errors only */
+            --background-color: #0a0a0a;
+            --card-background: rgba(20, 20, 20, 0.95);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --button-gradient: linear-gradient(45deg, #ffffff, #cccccc); /* Monochrome gradient */
+            --button-hover-gradient: linear-gradient(45deg, #cccccc, #ffffff);
+            --glow-color: rgba(255, 255, 255, 0.3); /* White glow */
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: var(--background-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+        }
+
+        .update-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .update-card {
+            background: var(--card-background);
+            backdrop-filter: blur(20px);
+            border: var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--glass-shadow);
+            width: clamp(300px, 80%, 600px);
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeIn 0.8s ease-in-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 2;
+        }
+
+        .update-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--glow-color);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 20px;
+            background: var(--button-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px #ffffff; }
+            100% { text-shadow: 0 0 20px #cccccc; }
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            font-size: 0.8em;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.8); /* Kept white-ish for visibility */
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px 12px 10px 30px;
+            color: #ffffff; /* Ensured white text for visibility */
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .form-control:focus {
+            border-color: rgba(255, 255, 255, 0.5); /* Subtle white instead of blue */
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px var(--glow-color);
+            color: #ffffff; /* Ensure text stays white */
+        }
+
+        .form-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1em;
+        }
+
+        .form-control:valid:not(:placeholder-shown) {
+            border-color: rgba(255, 255, 255, 0.3); /* Subtle white instead of green */
+        }
+
+        .form-control:invalid:not(:focus):not(:placeholder-shown) {
+         border-color: rgba(255, 255, 255, 0.2); /* Remove red border */
+         animation: shake 0.3s ease; /* Optional: keep shake animation */
+           }
+        
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .invalid-feedback {
+            color: var(--accent-color);
+            font-size: 0.7em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background: var(--button-gradient);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3); /* Adjusted glow */
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            color: #000000; /* Black text for contrast on white gradient */
+        }
+
+        .btn-primary:hover {
+            background: var(--button-hover-gradient);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 0, 0, 0.2); /* Darker ripple for contrast */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn-primary:hover::after {
+            width: 200%;
+            height: 200%;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .modal-content {
+            background: var(--card-background);
+            backdrop-filter: blur(20px);
+            border: var(--glass-border);
+            color: white;
+        }
+
+        .modal-title {
+            background: var(--button-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .update-card { padding: 15px; }
+            .card-title { font-size: 1.2em; }
+            .button-group { flex-direction: column; align-items: center; }
+            .form-control, .btn-primary, .btn-secondary { font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="update-container">
+        <div id="particles-js"></div>
+        <div class="update-card">
+            <h2 class="card-title">Add Job</h2>
+            <form method="POST" id="updateForm">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}" class="form-label">
+                        <i class="fas fa-{% if field.label == 'Job Name' %}briefcase{% elif field.label == 'Company Name' %}building{% elif field.label == 'Location' %}map-marker-alt{% elif field.label == 'Description' %}file-alt{% elif field.label == 'Salary Package' %}dollar-sign{% else %}list{% endif %} form-icon"></i>
+                        {{ field.label }}
+                        {% if field.help_text %}
+                        <i class="fas fa-info-circle" data-bs-toggle="tooltip" title="{{ field.help_text }}"></i>
+                        {% endif %}
+                    </label>
+                    {% if field.label == 'Description' %}
+                    <textarea class="form-control" id="{{ field.id_for_label }}" name="{{ field.name }}" {% if field.field.required %}required{% endif %}>{{ field.value|default:'' }}</textarea>
+                    {% else %}
+                    <input type="{{ field.field.widget.input_type|default:'text' }}"
+                           class="form-control"
+                           id="{{ field.id_for_label }}"
+                           name="{{ field.name }}"
+                           value="{{ field.value|default:'' }}"
+                           {% if field.field.required %}required{% endif %}>
+                    {% endif %}
+                    {% if field.errors %}
+                    <div class="invalid-feedback d-block">{{ field.errors.as_text }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                        Add Job
+                        <span class="spinner"></span>
+                    </button>
+                    
+                    <a href="{% url 'jobdisplay' request.user.id %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirm Add Job</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to add this job?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmSubmit">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 50, density: { enable: true, value_area: 800 } },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.3, random: true },
+                size: { value: 2, random: true },
+                line_linked: { enable: false },
+                move: { enable: true, speed: 1, direction: 'none', random: true }
+            },
+            interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'repulse' } } }
+        });
+
+        const form = document.getElementById('updateForm');
+        const submitBtn = form.querySelector('.btn-primary');
+        const spinner = submitBtn.querySelector('.spinner');
+
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+        });
+
+        document.getElementById('confirmSubmit').addEventListener('click', () => {
+            submitBtn.disabled = true;
+            spinner.style.display = 'inline-block';
+            setTimeout(() => { // Remove in production
+                form.submit();
+            }, 1000);
+        });
+
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                } else {
+                    input.classList.remove('is-valid');
+                    input.classList.add('is-invalid');
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+            new bootstrap.Tooltip(el);
+        });
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JobHub Dashboard - Your ultimate job search and resume management platform.">
+    <meta name="keywords" content="job search, resume builder, dashboard, JobHub, career, employment">
+    <meta name="author" content="JONU">
+    <meta name="robots" content="index, follow">
+    <title>JobHub Dashboard - Professional Career Hub</title>
+    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32"> <!-- Add a favicon for branding -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&family=Bebas+Neue&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+        :root {
+            --background-color: #0a0a0a;
+            --navbar-bg: linear-gradient(45deg, #000000, #1a1a1a);
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-gradient: linear-gradient(45deg, #1cc2ff, #ff261b);
+            --button-gradient: linear-gradient(45deg, #ff3333, #ff6666);
+            --button-hover-gradient: linear-gradient(45deg, #ff4d4d, #ff8080);
+            --shadow-color: rgba(0, 0, 0, 0.95);
+            --glow-color: rgba(255, 51, 51, 0.3); /* Reduced glow intensity */
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            --focus-outline: 0 0 0 2px rgba(255, 51, 51, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+    body {
+            background: var(--background-color);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.2s ease;
+    }
+
+    .navbar {
+            background: var(--navbar-bg);
+            padding: 8px 0; /* Reduced navbar height */
+            box-shadow: 0 2px 15px var(--shadow-color);
+            border-bottom: var(--glass-border);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .navbar.scrolled {
+            background: linear-gradient(45deg, #000000, #0d0d0d);
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 5px 0;
+            transition: all 0.2s ease;
+        }
+
+        .navbar-brand:hover, .navbar-brand:focus {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px rgba(28, 194, 255, 0.3);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            border: none;
+            position: relative;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            outline: none;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            z-index: -1;
+            transform: scale(0);
+            transition: transform 0.4s ease;
+        }
+
+        .nav-btn:hover::before {
+            transform: scale(1.1);
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        /* .nav-btn:hover::after {
+            width: 100%;
+            height: 100%;
+        } */
+
+        .nav-btn:focus {
+            outline: var(--focus-outline);
+        }
+
+        .profile-btn, .logout-btn {
+            background: var(--button-gradient);
+            color: var(--text-primary);
+        }
+
+        .profile-btn:hover, .logout-btn:hover, .profile-btn:focus, .logout-btn:focus {
+            transform: translateY(-2px);
+            background: var(--button-hover-gradient);
+            box-shadow: 0 5px 15px var(--glow-color);
+        }
+
+        .nav-icon {
+            font-size: 16px;
+    }
+
+    .container-center {
+            height: calc(100vh - 60px); /* Adjusted for reduced navbar height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+            flex-grow: 1;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            transition: transform 0.2s ease;
+        }
+
+        .dashboard-card {
+      position: relative;
+            width: clamp(300px, 85%, 400px); /* Reduced card width */
+            height: 300px; /* Reduced card height */
+            background: var(--card-bg);
+            backdrop-filter: blur(25px); /* Slightly reduced blur for performance */
+            border: var(--glass-border);
+            border-radius: 30px; /* Slightly smaller radius */
+      display: flex;
+      flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px; /* Reduced padding */
+            gap: 25px; /* Reduced gap */
+            box-shadow: var(--glass-shadow);
+      cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.3s ease; /* Simplified transition */
+            overflow: hidden;
+            z-index: 2;
+            outline: none;
+        }
+
+        .dashboard-card::before {
+            content: '';
+      position: absolute;
+            top: -80%;
+            left: -80%;
+            width: 260%;
+            height: 260%;
+            background: radial-gradient(circle, rgba(255, 51, 51, 0.15) 0%, transparent 70%); /* Reduced glow intensity */
+            opacity: 0;
+            transition: opacity 0.3s ease; /* Simplified transition */
+      z-index: -1;
+        }
+
+        .dashboard-card:hover::before {
+            opacity: 0.2; /* Reduced opacity for less glow */
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px); /* Removed 3D transforms */
+            box-shadow: 0 15px 40px var(--shadow-color), 0 0 20px var(--glow-color); /* Reduced glow intensity */
+        }
+
+        .dashboard-card:focus {
+            outline: var(--focus-outline);
+        }
+
+        .dashboard-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5em; /* Slightly reduced for smaller card */
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(28, 194, 255, 0.7), 0 0 15px rgba(255, 38, 27, 0.5);
+            animation: textGlow 3s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(28, 194, 255, 0.7), 0 0 5px rgba(255, 38, 27, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(255, 38, 27, 0.7), 0 0 10px rgba(28, 194, 255, 0.5); }
+        }
+
+        .dashboard-subtext {
+            font-size: 1.2em; /* Slightly reduced for smaller card */
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease-in-out;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-container {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+            margin-top: 40px; /* Reduced margin */
+            gap: 15px; /* Reduced gap */
+            padding: 0 15px; /* Reduced padding */
+            z-index: 2;
+            position: relative;
+            transition: transform 0.3s ease;
+    }
+
+    .section {
+            width: 25%;
+            padding: 20px; /* Reduced padding */
+      text-align: center;
+            border-radius: 25px; /* Slightly smaller radius */
+            background: var(--card-bg);
+            backdrop-filter: blur(20px); /* Slightly reduced blur for performance */
+            border: var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease; /* Simplified transition */
+            cursor: pointer;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            outline: none;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -80%;
+            left: -80%;
+            width: 260%;
+            height: 260%;
+            background: radial-gradient(circle, rgba(255, 51, 51, 0.15) 0%, transparent 70%); /* Reduced glow intensity */
+            opacity: 0;
+            transition: opacity 0.3s ease; /* Simplified transition */
+            z-index: -1;
+        }
+
+        .section:hover::before {
+            opacity: 0.2; /* Reduced opacity for less glow */
+        }
+
+        .section:hover {
+            transform: translateY(-5px); /* Removed 3D transforms */
+            box-shadow: 0 15px 40px var(--shadow-color), 0 0 20px var(--glow-color); /* Reduced glow intensity */
+        }
+
+        .section a {
+            text-decoration: none;
+            color: var(--text-primary);
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 10px; /* Reduced padding for smaller buttons */
+        }
+
+        .section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6em; /* Slightly reduced for smaller card */
+            color: var(--text-primary);
+            margin-bottom: 10px; /* Reduced margin */
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: slideUp 1s ease-in-out;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section p {
+            font-size: 1em; /* Slightly reduced for smaller card */
+            color: var(--text-secondary);
+            margin: 0;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .section:focus {
+            outline: var(--focus-outline);
+        }
+
+        #particles-js, #three-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 6px 0; /* Further reduced navbar height on mobile */
+            }
+            .navbar-brand { font-size: 20px; letter-spacing: 2px; }
+            .nav-btn { padding: 6px 12px; font-size: 0.8em; gap: 8px; }
+            .container-center { height: calc(100vh - 50px); padding: 10px; }
+            .dashboard-card { width: clamp(250px, 90%, 350px); height: 300px; padding: 20px; gap: 15px; }
+            .dashboard-heading { font-size: 2.5em; letter-spacing: 3px; }
+            .dashboard-subtext { font-size: 0.9em; margin-bottom: 15px; }
+            .section-container { flex-direction: column; gap: 15px; padding: 0 10px; }
+            .section { width: 100%; padding: 20px; height: 120px; }
+            .section h3 { font-size: 1.4em; margin-bottom: 5px; }
+            .section p { font-size: 0.8em; }
+        }
+
+        /* Accessibility Enhancements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .nav-btn:focus, .dashboard-card:focus, .section:focus {
+            outline: var(--focus-outline);
+        }
+
+        /* Performance Optimization */
+        .will-change-transform {
+            will-change: transform, opacity, box-shadow;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+            <a class="navbar-brand" href="#" aria-label="JobHub Homepage">JobHub</a>
+            <div class="nav-buttons">
+                <a href="{% url 'profile' pk=request.user.id %}" class="nav-btn profile-btn" aria-label="Navigate to Profile">
+                    <i class="fas fa-user nav-icon"></i> Profile
+                </a>
+                <a href="{% url 'logout' %}" class="nav-btn logout-btn" aria-label="Logout of JobHub">
+                    <i class="fas fa-sign-out-alt nav-icon"></i> Logout
+                </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-center">
+        <div class="dashboard-card will-change-transform" tabindex="0" aria-label="Welcome to JobHub Dashboard">
+            <h1 class="dashboard-heading">Welcome to JobHub</h1>
+            <p class="dashboard-subtext">Created by JONU</p>
+        </div>
+  </div>
+
+  <div class="container section-container">
+        <div class="section will-change-transform" tabindex="0" aria-label="Jobs Section - Find your dream job">
+            <a href="{% url 'jobdisplay' request.user.id %}" class="btn btn-dark">
+        <h3>Jobs</h3>
+        <p>Find your dream job here.</p>
+      </a>
+    </div>
+
+
+
+        <div class="section will-change-transform" tabindex="0" aria-label="Resume Section - Generate your resumes">
+            <a href="{% url 'ATS_score' %}" class="btn btn-dark">
+                <h3>ATS SCORE</h3>
+                <p>Check your ATS score.</p>
+            </a>
+        </div>
+
+
+
+
+        <div class="section will-change-transform" tabindex="0" aria-label="Resume Section - Generate your resumes">
+            <a href="{% url 'resume_list' request.user.id %}" class="btn btn-dark">
+      <h3>Resume</h3>
+      <p>Generate your resumes.</p>
+            </a>
+        </div>
+    </div>
+
+    <div id="particles-js"></div>
+    <div id="three-js"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplex-noise@3.0.0/simplex-noise.min.js"></script>
+    <script>
+        // Particle.js animation (removing for consistency with your request, but keeping for now as a fallback)
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 300, density: { enable: true, value_area: 800 } },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.6, random: true },
+                size: { value: 4, random: true },
+                line_linked: { enable: true, distance: 200, color: '#ff3333', opacity: 0.5, width: 2.5 },
+                move: { enable: true, speed: 7, direction: 'none', random: true, out_mode: 'bounce', attract: { enable: true, distance: 300 } }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    onresize: { enable: true, density_auto: true, density_area: 800 }
+                },
+                modes: {
+                    grab: { distance: 350, line_linked: { opacity: 0.8 } },
+                    push: { particles_nb: 12 }
+                }
+            }
+        });
+
+        // Three.js 3D particle system with noise-based movement (increased speed)
+        let scene, camera, renderer, particles3D, noise;
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            document.getElementById('three-js').appendChild(renderer.domElement);
+
+            noise = new SimplexNoise();
+
+            const particleCount = 1000;
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 2000;
+                positions[i + 1] = (Math.random() - 0.5) * 2000;
+                positions[i + 2] = (Math.random() - 0.5) * 2000;
+
+                colors[i] = Math.random() * 0.5 + 0.5;
+                colors[i + 1] = Math.random() * 0.5 + 0.5;
+                colors[i + 2] = Math.random() * 0.5 + 0.5;
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 8,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.9,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            particles3D = new THREE.Points(geometry, material);
+            scene.add(particles3D);
+
+            camera.position.z = 1000;
+
+            animateThree();
+        }
+
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+            const time = performance.now() * 0.0015; // Increased speed by adjusting time multiplier
+            const positions = particles3D.geometry.attributes.position.array;
+
+            for (let i = 0; i < positions.length; i += 3) {
+                const i3 = i / 3;
+                const noiseValue = noise.noise3D(
+                    positions[i] * 0.003 + time, // Increased noise speed
+                    positions[i + 1] * 0.003 + time,
+                    positions[i + 2] * 0.003 + time
+                );
+                positions[i] += noiseValue * 3; // Increased movement speed
+                positions[i + 1] += noiseValue * 3;
+                positions[i + 2] += noiseValue * 3;
+
+                if (positions[i] > 1000 || positions[i] < -1000) positions[i] *= -0.95;
+                if (positions[i + 1] > 1000 || positions[i + 1] < -1000) positions[i + 1] *= -0.95;
+                if (positions[i + 2] > 1000 || positions[i + 2] < -1000) positions[i + 2] *= -0.95;
+            }
+
+            particles3D.geometry.attributes.position.needsUpdate = true;
+            particles3D.rotation.x += 0.002; // Increased rotation speed
+            particles3D.rotation.y += 0.002;
+
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // GSAP animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navbar hide/show with enhanced animation
+        gsap.to('.navbar', {
+            y: '-100%',
+            scrollTrigger: {
+                trigger: 'body',
+                start: 'top top+=50',
+                end: 'bottom top',
+                scrub: 0.5,
+                onUpdate: (self) => {
+                    document.querySelector('.navbar').classList.toggle('scrolled', self.progress > 0);
+                }
+            }
+        });
+
+        // Dashboard card hover effect (simple 2D)
+        const dashboardCard = document.querySelector('.dashboard-card');
+        dashboardCard.addEventListener('mouseenter', () => {
+            gsap.to(dashboardCard, { y: -5, boxShadow: '0 20px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 51, 51, 0.4)', duration: 0.3, ease: 'power2.out' });
+        });
+
+        dashboardCard.addEventListener('mouseleave', () => {
+            gsap.to(dashboardCard, { y: 0, boxShadow: '0 12px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 51, 51, 0.3)', duration: 0.3, ease: 'power2.out' });
+        });
+
+        dashboardCard.addEventListener('focus', () => {
+            gsap.to(dashboardCard, { y: -5, boxShadow: '0 20px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 51, 51, 0.4)', duration: 0.3, ease: 'power2.out' });
+        });
+
+        dashboardCard.addEventListener('blur', () => {
+            gsap.to(dashboardCard, { y: 0, boxShadow: '0 12px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 51, 51, 0.3)', duration: 0.3, ease: 'power2.out' });
+        });
+
+        // Section hover effect (simple 2D)
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.addEventListener('mouseenter', () => {
+                gsap.to(section, { y: -5, boxShadow: '0 20px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 51, 51, 0.4)', duration: 0.3, ease: 'power2.out' });
+            });
+            section.addEventListener('mouseleave', () => {
+                gsap.to(section, { y: 0, boxShadow: '0 12px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 51, 51, 0.3)', duration: 0.3, ease: 'power2.out' });
+            });
+            section.addEventListener('focus', () => {
+                gsap.to(section, { y: -5, boxShadow: '0 20px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 51, 51, 0.4)', duration: 0.3, ease: 'power2.out' });
+            });
+            section.addEventListener('blur', () => {
+                gsap.to(section, { y: 0, boxShadow: '0 12px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 51, 51, 0.3)', duration: 0.3, ease: 'power2.out' });
+            });
+        });
+
+        // Particle and Three.js interaction enhancement
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            const mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            if (particles3D) {
+                gsap.to(particles3D.position, {
+                    x: mouseX * 100,
+                    y: mouseY * 100,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+            }
+        });
+
+        // Prevent default scroll behavior
+        window.addEventListener('wheel', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+
+        // Initial particle and Three.js load with resize handling
+        window.addEventListener('resize', () => {
+            onWindowResize();
+            particlesJS('particles-js', particlesJS.load('particles-js', {
+                particles: {
+                    number: { value: 300, density: { enable: true, value_area: 800 } },
+                    color: { value: '#ffffff' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.6, random: true },
+                    size: { value: 5, random: true },
+                    line_linked: { enable: true, distance: 200, color: '#ff3333', opacity: 0.5, width: 2.5 },
+                    move: { enable: true, speed: 4, direction: 'none', random: true, out_mode: 'bounce', attract: { enable: true, distance: 300 } }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'grab' },
+                        onclick: { enable: true, mode: 'push' },
+                        onresize: { enable: true, density_auto: true, density_area: 800 }
+                    },
+                    modes: {
+                        grab: { distance: 350, line_linked: { opacity: 0.8 } },
+                        push: { particles_nb: 12 }
+                    }
+                }
+            }, function() {
+                console.log('Particles loaded');
+            }));
+        });
+        window.dispatchEvent(new Event('resize'));
+        initThree();
+
+        // Accessibility enhancements
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.querySelectorAll('.nav-btn, .dashboard-card, .section').forEach(el => {
+                    el.classList.add('focus-visible');
+                });
+            }
+        });
+
+        // Performance optimization
+        gsap.ticker.lagSmoothing(0);
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                initThree();
+            });
+        } else {
+            setTimeout(initThree, 100);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - {{ resume.full_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #d0d0d0;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent body scrolling */
+        }
+        .container {
+            max-width: 450px; /* Further reduced width */
+            background: #212121;
+            padding: 10px; /* Minimal padding */
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333333;
+            max-height: 90vh; /* Fit within viewport */
+            overflow-y: hidden; /* Disable internal scrolling */
+        }
+        .card-header {
+            background: #2a2a2a;
+            color: #ffffff;
+            font-size: 1rem; /* Even smaller header */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px; /* Minimal padding */
+            text-align: center;
+            border-bottom: 1px solid #404040;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .card-body {
+            padding: 8px; /* Minimal padding */
+        }
+        .resume-section {
+            padding: 6px 0; /* Minimal padding */
+            border-bottom: 1px solid #404040;
+            transition: background 0.3s ease;
+        }
+        .resume-section:last-child {
+            border-bottom: none;
+        }
+        .resume-section:hover {
+            background: #2c2c2c;
+        }
+        .resume-section h4 {
+            font-size: 0.8rem; /* Smaller heading */
+            font-weight: 600;
+            color: #00d4ff;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+        }
+        .resume-section h4 i {
+            margin-right: 4px;
+            font-size: 0.9rem;
+        }
+        .resume-section p {
+            font-size: 0.65rem; /* Even smaller text */
+            color: #d0d0d0;
+            margin: 2px 0;
+            word-wrap: break-word;
+            line-height: 1.2; /* Tighten line spacing */
+        }
+        .resume-item {
+            margin-left: 10px;
+            font-size: 0.65rem;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px; /* Minimal margin */
+        }
+        .btn-professional {
+            background: linear-gradient(45deg, #00b4d8, #00d4ff);
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px; /* Minimal padding */
+            border-radius: 4px;
+            font-size: 0.6rem; /* Smaller font */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-professional:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 212, 255, 0.5);
+        }
+        .btn-professional i {
+            margin-right: 4px;
+        }
+        @media (max-width: 768px) {
+            .container { max-width: 90%; padding: 8px; max-height: 85vh; }
+            .btn-container { flex-direction: column; }
+            .btn-professional { width: 100%; margin: 2px 0; }
+        }
+        @media print {
+            body { background: #fff; color: #000; }
+            .container { border: none; box-shadow: none; background: #fff; }
+            .card-header { background: #fff; color: #000; border-bottom: 1px solid #000; }
+            .resume-section { border-bottom: 1px solid #000; }
+            .resume-section h4, .resume-section p { color: #000; }
+            .btn-container { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card-header">Resume - {{ resume.full_name }}</div>
+        <div class="card-body">
+            <div id="resumePreview">
+                <div class="resume-section">
+                    <h4><i class="fas fa-user"></i> Personal Information</h4>
+                    <p><strong>Name:</strong> {{ resume.full_name|default:"Not provided" }}</p>
+                    <p><strong>Email:</strong> {{ resume.email|default:"Not provided" }}</p>
+                    <p><strong>Phone:</strong> {{ resume.phone|default:"Not provided" }}</p>
+                </div>
+                <div class="resume-section">
+                    <h4><i class="fas fa-info-circle"></i> Professional Summary</h4>
+                    <p>{{ resume.summary|default:"No summary provided." }}</p>
+                </div>
+                <div class="resume-section">
+                    <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+                    {% if resume.education %}
+                        {% for edu in resume.education %}
+                            <div class="resume-item">{{ edu.degree }} - {{ edu.school }} ({{ edu.year }})</div>
+                        {% empty %}
+                            <p>No education details provided.</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No education details provided.</p>
+                    {% endif %}
+                </div>
+                <div class="resume-section">
+                    <h4><i class="fas fa-briefcase"></i> Experience</h4>
+                    {% if resume.experience %}
+                        {% for exp in resume.experience %}
+                            {% if exp.items %}
+                                {% for item in exp.items %}
+                                    <div class="resume-item">
+                                        {% if item.title and item.company and item.duration %}
+                                            {{ item.title }} at {{ item.company }} ({{ item.duration }})
+                                        {% else %}
+                                            {{ item|default:"Invalid experience format" }}
+                                        {% endif %}
+                                    </div>
+                                {% empty %}
+                                    <p>No experience details provided.</p>
+                                {% endfor %}
+                            {% else %}
+                                <div class="resume-item">{{ exp|default:"No experience details provided." }}</div>
+                            {% endif %}
+                        {% empty %}
+                            <p>No experience details provided.</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No experience details provided.</p>
+                    {% endif %}
+                </div>
+                <div class="resume-section">
+                    <h4><i class="fas fa-project-diagram"></i> Projects</h4>
+                    {% if resume.projects %}
+                        {% for proj in resume.projects %}
+                            {% if proj.items %}
+                                {% for item in proj.items %}
+                                    <div class="resume-item">
+                                        {% if item.title and item.description %}
+                                            {{ item.title }}: {{ item.description }}
+                                        {% else %}
+                                            {{ item|default:"Invalid project format" }}
+                                        {% endif %}
+                                    </div>
+                                {% empty %}
+                                    <p>No project details provided.</p>
+                                {% endfor %}
+                            {% else %}
+                                <div class="resume-item">{{ proj|default:"No project details provided." }}</div>
+                            {% endif %}
+                        {% empty %}
+                            <p>No project details provided.</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No project details provided.</p>
+                    {% endif %}
+                </div>
+                <div class="resume-section">
+                    <h4><i class="fas fa-tools"></i> Skills</h4>
+                    {% if resume.skills %}
+                        {% for skill in resume.skills %}
+                            {% if skill.items %}
+                                {% for item in skill.items %}
+                                    <div class="resume-item">{{ item }}</div>
+                                {% empty %}
+                                    <p>No skills provided.</p>
+                                {% endfor %}
+                            {% else %}
+                                <div class="resume-item">{{ skill|join:", "|default:"No skills provided." }}</div>
+                            {% endif %}
+                        {% empty %}
+                            <p>No skills provided.</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No skills provided.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="btn-container">
+                <a href="{% url 'resume_list' request.user.id %}" class="btn btn-professional">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+                <a href="/download/{{ resume.id }}/" class="btn btn-professional">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+                <a href="{% url 'edit_resume' resume.id %}" class="btn btn-professional">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

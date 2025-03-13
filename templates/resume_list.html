@@ -1,0 +1,200 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #d0d0d0;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+        }
+        .container {
+            max-width: 1000px;
+            background: #212121;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333333;
+        }
+        .header {
+            background: #2a2a2a;
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #404040;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .btn-action {
+            background: linear-gradient(45deg, #00b4d8, #00d4ff);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 212, 255, 0.5);
+        }
+        .btn-action i {
+            margin-right: 6px;
+        }
+        .btn-back {
+            background: linear-gradient(45deg, #333333, #444444);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(68, 68, 68, 0.5);
+        }
+        .btn-back i {
+            margin-right: 6px;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #2a2a2a;
+            color: #d0d0d0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #404040;
+            font-size: 0.85rem;
+        }
+        th {
+            background: #333333;
+            color: #00d4ff;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        tr:hover {
+            background: #333333;
+        }
+        .btn-table {
+            background: linear-gradient(45deg, #00b4d8, #00d4ff);
+            color: #ffffff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-right: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 100px;
+        }
+        .btn-table:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .btn-table i {
+            margin-right: 6px;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .container { max-width: 90%; padding: 15px; }
+            .btn-container { flex-direction: column; }
+            .btn-action, .btn-back { width: 100%; margin: 5px 0; }
+            th, td { font-size: 0.75rem; padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Resume List</div>
+        <div class="btn-container">
+            <a href="{% url 'template_select' request.user.id %}" class="btn-action">
+                <i class="fas fa-plus"></i> Create New Resume
+            </a>
+            <a href="{% url 'userdashboard' request.user.id %}" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resume in resumes %}
+                        <tr>
+                            <td>{{ resume.full_name|default:"Not provided" }}</td>
+                            <td>{{ resume.email|default:"Not provided" }}</td>
+                            <td>{{ resume.phone|default:"Not provided" }}</td>
+                            <td>
+                                <a href="{% url 'resume_preview' resume.id %}" class="btn-table">
+                                    <i class="fas fa-eye"></i> Preview
+                                </a>
+                                <a href="{% url 'edit_resume' resume.id %}" class="btn-table">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" style="text-align: center;">No resumes found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

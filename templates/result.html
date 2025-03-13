@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Result</title>
+    <!-- Inline Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Inline Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%); /* Deep black gradient */
+            color: #d0d0d0; /* Soft gray text */
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 600px;
+            background: #212121; /* Near-black card */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333333;
+            text-align: center;
+        }
+        h1 {
+            color: #ffffff;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .score-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+        }
+        .circle-bg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #2a2a2a; /* Dark gray base */
+            position: absolute;
+        }
+        .circle-progress {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(#00d4ff {{ score | floatformat:0 }}%, #404040 {{ score | floatformat:0 }}% 100%);
+            position: absolute;
+            animation: progress 2s ease-out forwards;
+        }
+        .circle-inner {
+            width: 80%;
+            height: 80%;
+            background: #212121;
+            border-radius: 50%;
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .score-text {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #00d4ff; /* Cyan score */
+            text-shadow: 0 2px 4px rgba(0, 212, 255, 0.5);
+        }
+        .btn-secondary {
+            background: linear-gradient(45deg, #333333, #444444);
+            border: none;
+            padding: 14px 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(68, 68, 68, 0.5);
+        }
+        @keyframes progress {
+            from {
+                background: conic-gradient(#00d4ff 0%, #404040 0% 100%);
+            }
+            to {
+                background: conic-gradient(#00d4ff {{ score | floatformat:0 }}%, #404040 {{ score | floatformat:0 }}% 100%);
+            }
+        }
+    </style>
+    <!-- Poppins font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Your ATS Score</h1>
+        <div class="score-circle">
+            <div class="circle-bg"></div>
+            <div class="circle-progress"></div>
+            <div class="circle-inner">
+                <span class="score-text">{{ score }}%</span>
+            </div>
+        </div>
+        <a href="{% url 'ATS_score' %}" class="btn btn-secondary">Check Another</a>
+    </div>
+</body>
+</html>

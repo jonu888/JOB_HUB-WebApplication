@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Generator - Template Vault</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-black text-light">
+    <div class="container-fluid px-4 py-5">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-5 animate-fade-in">
+            <h1 class="fs-1 fw-bold text-uppercase modern-title">Templates</h1>
+            <a href="/resume_list/{{request.user.id}}" class="btn btn-outline-light btn-md rounded-pill fw-medium animate-btn">Back<i class="fas fa-arrow-left ms-2"></i></a>
+        </div>
+
+        <!-- Template Cards - Stacked Vertical Layout -->
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-10">
+                <div class="card modern-card bg-dark border-0 shadow-md mb-4 animate-slide-up">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div class="card-content">
+                            <h3 class="card-title fs-2 fw-bold text-uppercase mb-2 text-white">Elegant</h3>
+                            <p class="card-text text-secondary fs-5">Sleek minimalism with a timeless edge.</p>
+                        </div>
+                        <a href="/resume_form/elegant/" class="btn btn-outline-light btn-md rounded-pill fw-medium animate-btn">Select</a>
+                    </div>
+                </div>
+                <div class="card modern-card bg-dark border-0 shadow-md mb-4 animate-slide-up" style="animation-delay: 0.1s;">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div class="card-content">
+                            <h3 class="card-title fs-2 fw-bold text-uppercase mb-2 text-white">Professional</h3>
+                            <p class="card-text text-secondary fs-5">Precision-crafted for formal impact.</p>
+                        </div>
+                        <a href="/resume_form/professional/" class="btn btn-outline-light btn-md rounded-pill fw-medium animate-btn">Select</a>
+                    </div>
+                </div>
+                <div class="card modern-card bg-dark border-0 shadow-md animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div class="card-content">
+                            <h3 class="card-title fs-2 fw-bold text-uppercase mb-2 text-white">Modern</h3>
+                            <p class="card-text text-secondary fs-5">Bold lines for a future-ready look.</p>
+                        </div>
+                        <a href="/resume_form/modern/" class="btn btn-outline-light btn-md rounded-pill fw-medium animate-btn">Select</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
