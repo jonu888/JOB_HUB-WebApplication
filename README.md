@@ -1,7 +1,7 @@
 <h1 align="center">JOB_HUB-WebApplication</h1>
 
 <h3>About</h3>
-The Job_Hub Web Application is a dynamic online platform built using Python-Django, designed to connect job seekers and Hr users. It streamlines the job search providing a feature-rich environment for both job seekers and Hr users to post job vacancies, apply for jobs
+The Job_Hub Web Application is built using Python-Django, designed to connect job seekers and Hr users. It streamlines the job search providing a feature-rich environment for both job seekers and Hr users to post job vacancies, apply for jobs
 
 ## Key Features
 
